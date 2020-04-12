@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="FilghtSim.view.Indicators"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FilghtSim.view"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="Black" BorderThickness="2" Padding="10">
+        <Viewbox>
+            <Grid Height="450" Width="800">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="heading" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35"  />
+                <TextBox x:Name="def0" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_Heading, Mode=OneWay, StringFormat=0.0#}" FontSize="35" />
+                <Label Grid.Row="1" Grid.Column="0" Content="air speed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35" />
+                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_AirSpeed, Mode=OneWay, StringFormat=0.0#}" FontSize="35" />
+                <Label Grid.Row="2" Grid.Column="0" Content="ground speed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35"  />
+                <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_GroundSpeed, Mode=OneWay, StringFormat=0.0#}" FontSize="35"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="vertical speed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35" />
+                <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_VerticalSpeed, Mode=OneWay, StringFormat=0.0#}" FontSize="35"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="altitude" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35" />
+                <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_Altitude, Mode=OneWay, StringFormat=0.0#}" FontSize="35"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="roll" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35" />
+                <TextBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_Roll, Mode=OneWay, StringFormat=0.0#}" FontSize="35"/>
+                <Label Grid.Row="6" Grid.Column="0" Content="pitch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35" />
+                <TextBox Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_Pitch, Mode=OneWay, StringFormat=0.0#}" FontSize="35"/>
+                <Label Grid.Row="7" Grid.Column="0" Content="altimeter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="35" />
+                <TextBox Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path=_Altimeter, Mode=OneWay, StringFormat=0.0#}" FontSize="35"/>
+            </Grid>
+        </Viewbox>
+    </Border>
+</UserControl>

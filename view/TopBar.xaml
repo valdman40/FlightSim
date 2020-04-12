@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="FilghtSim.view.TopBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FilghtSim.view"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="Black" BorderThickness="2" Margin="5" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" TextAlignment="Center" Text="name"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="time"/>
+            <Border CornerRadius="10" Grid.Column="2">
+                <Button x:Name="SettingsButton" VerticalAlignment="Center" Width="60" Click="SettingsButton_Click">settings</Button>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>
