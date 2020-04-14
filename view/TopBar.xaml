@@ -7,17 +7,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border BorderBrush="Black" BorderThickness="2" Margin="5" >
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" TextAlignment="Center" Text="name"/>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" TextAlignment="Center" Text="time"/>
-            <Border CornerRadius="10" Grid.Column="2">
-                <Button x:Name="SettingsButton" VerticalAlignment="Center" Width="60" Click="SettingsButton_Click">settings</Button>
-            </Border>
-        </Grid>
+        <Viewbox>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Center" Width="150" Background="LightGreen" Padding="10">connect</Button>
+                <Button Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" Width="150" Background="PaleVioletRed" Padding="10">disconnect</Button>
+                <DockPanel LastChildFill="True" Grid.Column="2" Width="200">
+                    <TextBlock Text="ip" Margin="5" FontSize="10" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                    <TextBox Height="25" Width="Auto" Margin="5"/>
+                </DockPanel >
+                <DockPanel LastChildFill="True" Grid.Column="2" Grid.Row="1" Width="200">
+                    <TextBlock Text="port" Margin="5" FontSize="10" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                    <TextBox Height="25" Width="Auto" Margin="5"/>
+                </DockPanel >
+            </Grid>
+        </Viewbox>
     </Border>
 </UserControl>

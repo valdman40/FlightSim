@@ -95,13 +95,17 @@ namespace FilghtSim.model
                         Longitude = Convert.ToDouble(Client.read());
                         Client.write("get /controls/flight/aileron\r\n");
                         Aileron = Convert.ToDouble(Client.read());
+                        //Console.WriteLine("Aileron: " + Aileron);
                         Client.write("get /controls/flight/elevator\r\n");
                         Elevator = Convert.ToDouble(Client.read());
+                       // Console.WriteLine("Elevator: " + Elevator);
                         Client.write("get /controls/flight/rudder\r\n");
                         Rudder = Convert.ToDouble(Client.read());
+                       // Console.WriteLine("Rudder: " + Rudder);
                         Client.write("get /controls/engines/current-engine/throttle\r\n");
                         Throttle = Convert.ToDouble(Client.read());
-                        if ((longitude <= 180 && longitude >= -180) && (latitude <= 81 && latitude >= -81))
+                        //Console.WriteLine("Throttle: " + Throttle);
+                        if ((longitude <= 180 && longitude >= -180) && (latitude <= 90 && latitude >= -90))
                         {
                             Location = latitude + "," + longitude;
                         }

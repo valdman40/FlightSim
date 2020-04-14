@@ -25,18 +25,5 @@ namespace FilghtSim.view
         {
             InitializeComponent();
         }
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("settings was clicked");
-            Button b = sender as Button; // indicators
-            if (b.FontSize == 40)
-            {
-                b.FontSize = 15;
-            }
-            else
-            {
-                b.FontSize = 40;
-            }
-        }
     }
 }
