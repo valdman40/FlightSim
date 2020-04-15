@@ -8,7 +8,7 @@ namespace FilghtSim.model
 {
     public interface IModel : INotifyPropertyChanged
     {
-
+        String ErrorString { get; set; }
         double Roll { get; set; }
         double Rudder { get; set; }
         double Elevator { get; set; }

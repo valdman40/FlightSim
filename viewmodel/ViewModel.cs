@@ -12,6 +12,8 @@ namespace FlightSim
     {
         public IModel model;
 
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ViewModel(IModel model1)
@@ -23,21 +25,10 @@ namespace FlightSim
                     NotifyPropertyChanged("_" + e.PropertyName);
                 };
         }
-        public double _Roll { get {
 
-                    return model.Roll;
-
-            } }
-
-        public double _Pitch
-        {
-            get
-            {
-
-                    return model.Pitch;
-
-            }
-        }
+        public String _ErrorString { get { return model.ErrorString; } }
+        public double _Roll { get { return model.Roll; } }
+        public double _Pitch   { get    {  return model.Pitch;   } }
 
         public double _GroundSpeed
         {
@@ -109,6 +100,7 @@ namespace FlightSim
         public double _Longtitude { get { return model.Longitude; } }
 
         private double throttle;
+
         public double _Throttle
         {
             get { return throttle; }

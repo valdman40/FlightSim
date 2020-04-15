@@ -30,13 +30,12 @@ namespace FilghtSim
             ITelnetClient a = new MyTelnetClient();
             IModel m = new Model(a);
             ViewModel vm = new ViewModel(m);
-           Indicators.DataContext = vm;
-         Map.DataContext = vm;
-          Controls.DataContext = vm;
+            Indicators.DataContext = vm;
+            Map.DataContext = vm;
+            Controls.DataContext = vm;
+            ErrorWindow.DataContext = vm;
+            // TopBar.DataContext = vm;
             TopBar.SetVM(vm);
-          //  m.Connect("127.0.0.1", 5402);
-            //m.Start();
-
         }
     }
 }

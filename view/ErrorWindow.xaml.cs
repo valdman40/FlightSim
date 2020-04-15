@@ -20,36 +20,6 @@ namespace FilghtSim.view
     /// </summary>
     public partial class ErrorWindow : UserControl
     {
-        private int count = 0;
-        private List<Error> errors = new List<Error>();
-        public ErrorWindow()
-        {
-            InitializeComponent();
-        }
-
-        public void addError(String errorName)
-        {
-            count++;
-            errors.Add(new Error() { Number = count, errorName = errorName });
-            /*
-            if(errors.Count > 4)
-            {
-                errors.RemoveAt(0);
-            }
-            */
-            errorsView.ItemsSource = null;
-            errorsView.ItemsSource = errors;
-        }
-
-        public class Error
-        {
-            public int Number { get; set; }
-            public string errorName { get; set; }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        { 
-            addError("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        }
+        
     }
 }

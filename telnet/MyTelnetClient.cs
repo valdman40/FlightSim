@@ -18,7 +18,7 @@ namespace FilghtSim.telnet
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
             client = new TcpClient();
-
+            client.ReceiveTimeout = 10000;
 
             while (!isConnected())
             {
