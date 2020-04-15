@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
@@ -12,25 +13,26 @@ namespace FilghtSim.model
     {
 
         private ITelnetClient Client;
-        private double roll;
-        private double pitch;
-        private double verticalSpeed;
-        private double aileron;
-        private double rudder;
-        private double elevator;
-        private double throttle;
-        private double groundSpeed;
-        private double airSpeed;
-        private double heading;
-        private double altitude;
-        private double altimeter;
-        private double latitude;
-        private double longitude;
+        private double roll=0;
+        private double pitch=0;
+        private double verticalSpeed=0;
+        private double aileron = 0;
+        private double rudder = 0;
+        private double elevator = 0;
+        private double throttle = 0;
+        private double groundSpeed = 0;
+        private double airSpeed = 0;
+        private double heading = 0;
+        private double altitude = 0;
+        private double altimeter = 0;
+        private double latitude = 0;
+        private double longitude = 0;
         private string location;
-        private bool StopBool = false;
+        private bool stopBool = false;
         private static Mutex mutex = new Mutex();
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public bool StopBool { get { return stopBool; } set { stopBool = value; NotifyPropertyChanged("Bool Changed"); } }
         public double Roll { get { return roll; } set { roll = value; NotifyPropertyChanged("Roll"); } }
         public double VerticalSpeed { get { return verticalSpeed; } set { verticalSpeed = value; NotifyPropertyChanged("VerticalSpeed"); } }
         public double Pitch { get { return pitch; } set { pitch = value; NotifyPropertyChanged("Pitch"); } }
@@ -57,7 +59,9 @@ namespace FilghtSim.model
         }
         public void Connect(string ip, int port)
         {
+            StopBool = true;
             this.Client.connect(ip, port);
+           
         }
         public void Disconnect()
         {
@@ -68,13 +72,14 @@ namespace FilghtSim.model
         {
             new Thread(delegate ()
             {
-                while (!StopBool)
+                while (StopBool)
                 {
                     try
                     {
                         mutex.WaitOne();
                         Client.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
                         Roll = Convert.ToDouble(Client.read());
+                        Console.WriteLine(Roll);
                         Client.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
                         Pitch = Convert.ToDouble(Client.read());
                         Client.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
@@ -95,13 +100,14 @@ namespace FilghtSim.model
                         Longitude = Convert.ToDouble(Client.read());
                         Client.write("get /controls/flight/aileron\r\n");
                         Aileron = Convert.ToDouble(Client.read());
-                        //Console.WriteLine("Aileron: " + Aileron);
+                        Console.WriteLine("Aileron: " + Aileron);
+                        Debug.WriteLine("Aileron: " + Aileron);
                         Client.write("get /controls/flight/elevator\r\n");
                         Elevator = Convert.ToDouble(Client.read());
-                       // Console.WriteLine("Elevator: " + Elevator);
+                        // Console.WriteLine("Elevator: " + Elevator);
                         Client.write("get /controls/flight/rudder\r\n");
                         Rudder = Convert.ToDouble(Client.read());
-                       // Console.WriteLine("Rudder: " + Rudder);
+                        // Console.WriteLine("Rudder: " + Rudder);
                         Client.write("get /controls/engines/current-engine/throttle\r\n");
                         Throttle = Convert.ToDouble(Client.read());
                         //Console.WriteLine("Throttle: " + Throttle);
@@ -122,7 +128,7 @@ namespace FilghtSim.model
 
         public void Stop()
         {
-            StopBool = true;
+            StopBool = false;
         }
         public void NotifyPropertyChanged(string propName)
         {

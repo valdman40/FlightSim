@@ -47,7 +47,7 @@ namespace FilghtSim.view
 
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 initialPoint = e.GetPosition(this);
             }
@@ -58,7 +58,8 @@ namespace FilghtSim.view
             if (e.LeftButton != MouseButtonState.Pressed) { return; }
             double x = e.GetPosition(this).X - initialPoint.X;
             double y = e.GetPosition(this).Y - initialPoint.Y;
-            if (Math.Sqrt(x * x + y * y) < Base.Width / 2) {
+            if (Math.Sqrt(x * x + y * y) < Base.Width / 2)
+            {
                 knobPosition.X = x;
                 knobPosition.Y = y;
             }

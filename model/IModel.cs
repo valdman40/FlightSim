@@ -24,8 +24,7 @@ namespace FilghtSim.model
         double Latitude { get; set; }
         double Longitude { get; set; }
         string Location { get; set; }
-
-
+        bool StopBool { get; set; }
 
         void Start();
         void Stop();
@@ -34,8 +33,5 @@ namespace FilghtSim.model
         void setThrottle(double value);
         void setRudder(double value);
         void setAileron(double value);
-
-
-
     }
 }

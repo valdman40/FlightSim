@@ -23,57 +23,166 @@ namespace FlightSim
                     NotifyPropertyChanged("_" + e.PropertyName);
                 };
         }
-        public double _Roll { get { return model.Roll; } }
+        public double _Roll { get {
 
-        public double _Pitch { get { return model.Pitch; } }
+                    return model.Roll;
 
-        public double _GroundSpeed{ get { return model.GroundSpeed; } }
+            } }
 
-        public double _AirSpeed{get{    return model.AirSpeed;}}
+        public double _Pitch
+        {
+            get
+            {
 
-        public double _VerticalSpeed{get{   return model.VerticalSpeed;}}
+                    return model.Pitch;
 
-        public double _Heading{get{return model.Heading;}}
+            }
+        }
 
-        public double _Altimeter{get{return model.Altimeter;}}
+        public double _GroundSpeed
+        {
+            get
+            {
+                    return model.GroundSpeed;
 
-        public double _Altitude{get{return model.Altitude;}}
+            }
+        }
 
-        public double _Latitude {  get  {return model.Latitude;  } }
+        public double _AirSpeed
+        {
+            get
+            {
+                    return model.AirSpeed;
 
-        public double _Longtitude {get{ return model.Longitude;}}
+
+            }
+        }
+
+        public double _VerticalSpeed
+        {
+            get
+            {
+
+                    return model.VerticalSpeed;
+
+            }
+        }
+
+        public double _Heading
+        {
+            get
+            {
+
+                    return model.Heading;
+
+            }
+        }
+
+        public double _Altimeter
+        {
+            get
+            {
+
+                    return model.Altimeter;
+
+            }
+        }
+
+        public double _Altitude
+        {
+            get
+            {
+
+                    return model.Altitude;
+
+            }
+        }
+
+        public double _Latitude
+        {
+            get
+            {
+                    return model.Latitude;
+            }
+        }
+
+        public double _Longtitude { get { return model.Longitude; } }
 
         private double throttle;
-        public double _Throttle  {
+        public double _Throttle
+        {
             get { return throttle; }
-            set {throttle = value; model.setThrottle(value);}   
+            set
+            {
+                if (IsConnected())
+                {
+                    throttle = value; model.setThrottle(value);
+                }
+            }
         }
 
         private double rudder;
         public double _Rudder
         {
             get { return rudder; }
-            set { rudder = value; model.setRudder(value); }
+            set
+            {
+                if (IsConnected())
+                {
+                    rudder = value; model.setRudder(value);
+                }
+            }
         }
 
         private double aileron;
         public double _Aileron
         {
             get { return aileron; }
-            set{ aileron = value;  model.setAileron(value); }
+            set
+            {
+                if (IsConnected())
+                {
+                    aileron = value; model.setAileron(value);
+                }
+            }
+        }
+
+        internal void Stop()
+        {
+            model.Stop();
         }
 
         private double elevator;
         public double _Elevator
         {
             get { return elevator; }
-            set {   elevator = value;   model.setElevator(value); }
+            set
+            {
+                if (IsConnected())
+                {
+                    elevator = value; model.setElevator(value);
+                }
+            }
         }
 
         public string _Location { get { return model.Location; } }
 
+        public bool IsConnected()
+        {
+            return model.StopBool;
+        }
+        public void Connect(string ip,int port)
+        {
+            model.Connect(ip, port);
+        }
+        public void Start()
+        {
+            model.Start();
+        }
+
         public void NotifyPropertyChanged(string propName)
         {
+          
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 

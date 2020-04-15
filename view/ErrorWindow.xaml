@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="800">
     <Viewbox>
-        <Grid Background="Red" Width="800" Height="200">
+        <Grid Background="AliceBlue" Width="800" Height="200">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -15,21 +15,21 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Click="Button_Click" FontSize="40" >Errors (click to add)</Button>
+            <Button Grid.Row="0" Click="Button_Click" FontSize="25" >Errors (click to add)</Button>
             <ListView Grid.Row="1" Grid.RowSpan="100" Margin="5" Name="errorsView" Background="LightPink">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Number" Width="30">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Number}" FontSize="20px"/>
+                                    <TextBlock Text="{Binding Number}" FontSize="50px"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="error" Width="770">
+                        <GridViewColumn Header="error" Width="770" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding errorName}" FontSize="20px"/>
+                                    <TextBlock Text="{Binding errorName}" FontSize="40px"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
