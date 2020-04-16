@@ -26,6 +26,7 @@ namespace FlightSim
                 };
         }
 
+        public void cleanErrorString() { model.cleanErrorString(); }
         public String _ErrorString { get { return model.ErrorString; } }
         public double _Roll { get { return model.Roll; } }
         public double _Pitch   { get    {  return model.Pitch;   } }
@@ -161,7 +162,7 @@ namespace FlightSim
 
         public bool IsConnected()
         {
-            return model.StopBool;
+            return model.IsConnected;
         }
         public void Connect(string ip,int port)
         {

@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace FilghtSim.view
 {
-    /// <summary>
-    /// Interaction logic for Indicators.xaml
-    /// </summary>
+
     public partial class Indicators : UserControl
     {
         public Indicators()

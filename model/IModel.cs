@@ -24,11 +24,12 @@ namespace FilghtSim.model
         double Latitude { get; set; }
         double Longitude { get; set; }
         string Location { get; set; }
-        bool StopBool { get; set; }
+        bool IsConnected { get; set; }
 
         void Start();
         void Stop();
         void Connect(string ip, int port);
+        void cleanErrorString();
         void setElevator(double value);
         void setThrottle(double value);
         void setRudder(double value);

@@ -14,25 +14,25 @@ namespace FilghtSim.telnet
         private NetworkStream stream;
         public MyTelnetClient() { }
 
-        public void connect(string ip, int port)
+        public bool connect(string ip, int port)
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
             client = new TcpClient();
             client.ReceiveTimeout = 10000;
 
-            while (!isConnected())
+            try
             {
-                try
-                {
-                    client.Connect(ep);
-                }
-                catch (Exception e)
-                {
-                }
+                client.Connect(ep);
+                Console.WriteLine("You are connected");
+                this.stream = client.GetStream();
+                return true;
             }
-
-            Console.WriteLine("You are connected");
-            this.stream = client.GetStream();
+            catch (Exception e)
+            {
+                Console.WriteLine("couldnt connect: " + e);
+                return false;
+            }
+           
         }
 
         public void disconnect()

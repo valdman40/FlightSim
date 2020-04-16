@@ -25,6 +25,7 @@ namespace FilghtSim.view
         private ViewModel vm;
         public TopBar()
         {
+            this.vm = (Application.Current as App).vm;
             InitializeComponent();
         }
 
@@ -43,11 +44,6 @@ namespace FilghtSim.view
                 }
             }
 
-        }
-
-        internal void SetVM(ViewModel vm)
-        {
-            this.vm = vm;
         }
 
         private void DisconnectButton_Click(object sender, RoutedEventArgs e)

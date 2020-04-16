@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSim;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,17 @@ namespace FilghtSim.view
     /// </summary>
     public partial class ErrorWindow : UserControl
     {
-        
+        private ViewModel vm;
+
+        public ErrorWindow()
+        {
+            this.vm = (Application.Current as App).vm;
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.vm.cleanErrorString();
+        }
     }
 }

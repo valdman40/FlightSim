@@ -27,12 +27,16 @@ namespace FilghtSim.model
         private double latitude = 0;
         private double longitude = 0;
         private string location;
-        private bool stopBool = false;
+        private bool isConnected = false;
         private String errorString = "";
         private int errorCount = 0;
         private static Mutex mutex = new Mutex();
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public void cleanErrorString()
+        {
+            ErrorString = "";
+        }
         public String ErrorString
         {
             get{
@@ -49,12 +53,20 @@ namespace FilghtSim.model
                 return errorString;
             }
                 set {
-                errorCount++;
-                errorString = errorString + errorCount + ". "+ value + "\n"; 
+                if (String.IsNullOrEmpty(value))
+                {
+                    errorString = "";
+                    errorCount = 0;
+                }
+                else
+                {
+                    errorCount++;
+                    errorString = errorString + errorCount + ". " + value + "\n";
+                }
                 NotifyPropertyChanged("ErrorString");
             } 
         }
-        public bool StopBool { get { return stopBool; } set { stopBool = value; NotifyPropertyChanged("Bool Changed"); } }
+        public bool IsConnected { get { return isConnected; } set { isConnected = value; NotifyPropertyChanged("Bool Changed"); } }
         public double Roll { get { return roll; } set { roll = value; NotifyPropertyChanged("Roll"); } }
         public double VerticalSpeed { get { return verticalSpeed; } set { verticalSpeed = value; NotifyPropertyChanged("VerticalSpeed"); } }
         public double Pitch { get { return pitch; } set { pitch = value; NotifyPropertyChanged("Pitch"); } }
@@ -72,48 +84,51 @@ namespace FilghtSim.model
 
         public string Location { get { return location; } set { location = value; NotifyPropertyChanged("Location"); } }
 
-        public Model(ITelnetClient c)
+        public void init()
         {
-            this.Client = c;
             Latitude = 32.002644;
             Longitude = 34.888781;
             Location = Latitude.ToString() + " , " + Longitude.ToString();
         }
+        public Model(ITelnetClient c)
+        {
+            this.Client = c;
+            init();
+        }
         public void Connect(string ip, int port)
         {
-            StopBool = true;
-            this.Client.connect(ip, port);
-           
-        }
-        public void Disconnect()
-        {
-            this.Client.disconnect();
+            IsConnected = this.Client.connect(ip, port);
+            if (!IsConnected)
+            {
+                ErrorString = "could not connect to server";
+            }
         }
 
         public void Start()
         {
             new Thread(delegate ()
             {
-                while (StopBool)
+                while (IsConnected)
                 {
                     try
                     {
                         mutex.WaitOne();
 
                         // Roll
-                        // Client.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
                         try  { 
-                            Client.write("get /wnstrumentation/attitude-indicator/internal-roll-deg\r\n");
+                            Client.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
                             Roll = Convert.ToDouble(Client.read()); 
                         }
-                        catch(Exception e1)  {  ErrorString = "Roll"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1)  {  ErrorString = "Roll"; Console.WriteLine(e1); }
 
                         // Pitch
                         try {
                             Client.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
                             Pitch = Convert.ToDouble(Client.read());
                         }
-                        catch (Exception e1)  { ErrorString = "Pitch"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1)  { ErrorString = "Pitch"; Console.WriteLine(e1); }
 
                         // VerticalSpeed
                         try
@@ -121,49 +136,57 @@ namespace FilghtSim.model
                             Client.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
                             VerticalSpeed = Convert.ToDouble(Client.read());
                         }
-                        catch (Exception e1) { ErrorString = "VerticalSpeed"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1) { ErrorString = "VerticalSpeed"; Console.WriteLine(e1); }
 
                         // GroundSpeed
                         try {
                             Client.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
                             GroundSpeed = Convert.ToDouble(Client.read());}
-                        catch (Exception e1)  { ErrorString = "GroundSpeed"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1)  { ErrorString = "GroundSpeed"; Console.WriteLine(e1); }
 
                         // AirSpeed
                         try {
                             Client.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n"); 
                             AirSpeed = Convert.ToDouble(Client.read()); }
-                        catch (Exception e1)  { ErrorString = "AirSpeed"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1)  { ErrorString = "AirSpeed"; Console.WriteLine(e1); }
 
                         // Heading
                         try {
                             Client.write("get /instrumentation/heading-indicator/indicated-heading-deg\r\n");
                             Heading = Convert.ToDouble(Client.read()); }
-                        catch (Exception e1) { ErrorString = "Heading"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1) { ErrorString = "Heading"; Console.WriteLine(e1); }
 
                         // Altitude
                         try  {
                             Client.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
                             Altitude = Convert.ToDouble(Client.read());}
-                        catch (Exception e1)  { ErrorString = "Altitude";}
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1)  { ErrorString = "Altitude"; Console.WriteLine(e1); }
 
                         // Altimeter
                         try{
                             Client.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
                             Altimeter = Convert.ToDouble(Client.read()); }
-                        catch (Exception e1)  { ErrorString = "Altimeter"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1)  { ErrorString = "Altimeter"; Console.WriteLine(e1); }
 
                         // Latitude
                         try   {
                             Client.write("get /position/latitude-deg\r\n");
                             Latitude = Convert.ToDouble(Client.read());}
-                        catch (Exception e1) { ErrorString = "Latitude";  }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1) { ErrorString = "Latitude"; Console.WriteLine(e1); }
 
                         // Longitude
                         try  {
                             Client.write("get /position/longitude-deg\r\n");
                             Longitude = Convert.ToDouble(Client.read()); }
-                        catch (Exception e1) { ErrorString = "Longitude"; }
+                        catch (System.IO.IOException Err) { ErrorString = "Timeout exception"; Console.WriteLine(Err); }
+                        catch (Exception e1) { ErrorString = "Longitude"; Console.WriteLine(e1); }
 
                         // Location
                         if ((longitude <= 180 && longitude >= -180) && (latitude <= 90 && latitude >= -90))
@@ -179,6 +202,7 @@ namespace FilghtSim.model
                     catch (System.IO.IOException Err)
                     {
                         ErrorString = "Timeout exception";
+                        Console.WriteLine(Err);
                     }
                 }
             }).Start();
@@ -186,7 +210,8 @@ namespace FilghtSim.model
 
         public void Stop()
         {
-            StopBool = false;
+            IsConnected = false;
+            init();
         }
         public void NotifyPropertyChanged(string propName)
         {

@@ -27,15 +27,17 @@ namespace FilghtSim
             InitializeComponent();
 
             Console.WriteLine("Hello World!");
+            /*
             ITelnetClient a = new MyTelnetClient();
             IModel m = new Model(a);
             ViewModel vm = new ViewModel(m);
-            Indicators.DataContext = vm;
-            Map.DataContext = vm;
-            Controls.DataContext = vm;
-            ErrorWindow.DataContext = vm;
-            // TopBar.DataContext = vm;
-            TopBar.SetVM(vm);
+            */
+            Indicators.DataContext = (Application.Current as App).vm;
+            Map.DataContext = (Application.Current as App).vm; 
+            Controls.DataContext = (Application.Current as App).vm;
+            ErrorWindow.DataContext = (Application.Current as App).vm;
+            TopBar.DataContext = (Application.Current as App).vm;
+            // TopBar.SetVM(vm);
         }
     }
 }
