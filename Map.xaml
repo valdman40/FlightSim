@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="FilghtSim.view.Map"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FilghtSim.view"
+             mc:Ignorable="d" 
+             xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="Black" BorderThickness="2">
+        <Grid>
+            <m:Map Center="32.002644,34.888781" CredentialsProvider="f741LJdqPT1otkNHCOz8~HXb36LA2k8qm6xkLUcoc9A~AmGxADVgwfCblZh-uKtDZJiynoffEQXKqFn9dGWOLjB1Dyn9DiDXljxghN-f14V6">
+                <m:Pushpin m:MapLayer.Position="{Binding _Location}" />
+            </m:Map>
+        </Grid>
+    </Border>
+</UserControl>
